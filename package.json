@@ -1,0 +1,27 @@
+{
+  "name": "anki-vocab",
+  "private": true,
+  "version": "0.0.1",
+  "description": "anki-vocab",
+  "license": "MIT",
+  "files": [
+    "dist/"
+  ],
+  "scripts": {
+    "build": "stencil build",
+    "start": "stencil build --dev --watch --serve --no-open",
+    "test": "stencil test --spec --e2e",
+    "test.watch": "stencil test --spec --e2e --watch",
+    "generate": "stencil generate"
+  },
+  "devDependencies": {
+    "@ionic/core": "^5.3.1",
+    "@stencil/core": "^2.0.0-2"
+  },
+  "dependencies": {
+    "@vercel/node": "^1.7.4",
+    "linaria": "^1.3.3",
+    "linguee": "^1.0.1",
+    "rollup-plugin-css-only": "^2.1.0"
+  }
+}
