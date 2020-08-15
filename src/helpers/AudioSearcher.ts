@@ -1,5 +1,4 @@
-import { isLanguageSupported, LanguageNotSupportedError, Languages } from "./languages";
-import * as linguee from '../../linguee'
+import { isLanguageSupported, LanguageNotSupportedError } from "./languages";
 
 export class AudioSearcher {
   static async search(query: string, language: Language): Promise<string[]> {
