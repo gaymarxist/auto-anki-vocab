@@ -2,16 +2,18 @@ type LanguageNames = 'German' | 'English'
 
 export const Languages: { [K in LanguageNames]: Language } = {
   German: {
-    name: 'Deutsch',
+    nameInLanguage: 'Deutsch',
+    nameInEnglish: 'German',
     googleRegionCode: 'countryDE',
     googleLanguageCode: 'lang_de',
-    lingueeCode: 'ger'
+    lingueeCode: 'de'
   },
   English: {
-    name: 'English',
+    nameInLanguage: 'English',
+    nameInEnglish: 'English',
     googleRegionCode: 'countryUS',
     googleLanguageCode: 'lang_en',
-    lingueeCode: 'eng'
+    lingueeCode: 'en'
   }
 }
 

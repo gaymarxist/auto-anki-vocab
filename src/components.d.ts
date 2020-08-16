@@ -10,6 +10,9 @@ export namespace Components {
     }
     interface AppRoot {
     }
+    interface AudioPicker {
+        "lingueeResults": LingueeResult[];
+    }
     interface ImagePicker {
         "getSelectedImageUrls": () => Promise<any[]>;
         "urls": string[];
@@ -28,6 +31,12 @@ declare global {
         prototype: HTMLAppRootElement;
         new (): HTMLAppRootElement;
     };
+    interface HTMLAudioPickerElement extends Components.AudioPicker, HTMLStencilElement {
+    }
+    var HTMLAudioPickerElement: {
+        prototype: HTMLAudioPickerElement;
+        new (): HTMLAudioPickerElement;
+    };
     interface HTMLImagePickerElement extends Components.ImagePicker, HTMLStencilElement {
     }
     var HTMLImagePickerElement: {
@@ -37,6 +46,7 @@ declare global {
     interface HTMLElementTagNameMap {
         "app-home": HTMLAppHomeElement;
         "app-root": HTMLAppRootElement;
+        "audio-picker": HTMLAudioPickerElement;
         "image-picker": HTMLImagePickerElement;
     }
 }
@@ -45,12 +55,16 @@ declare namespace LocalJSX {
     }
     interface AppRoot {
     }
+    interface AudioPicker {
+        "lingueeResults"?: LingueeResult[];
+    }
     interface ImagePicker {
         "urls"?: string[];
     }
     interface IntrinsicElements {
         "app-home": AppHome;
         "app-root": AppRoot;
+        "audio-picker": AudioPicker;
         "image-picker": ImagePicker;
     }
 }
@@ -60,6 +74,7 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "app-home": LocalJSX.AppHome & JSXBase.HTMLAttributes<HTMLAppHomeElement>;
             "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
+            "audio-picker": LocalJSX.AudioPicker & JSXBase.HTMLAttributes<HTMLAudioPickerElement>;
             "image-picker": LocalJSX.ImagePicker & JSXBase.HTMLAttributes<HTMLImagePickerElement>;
         }
     }

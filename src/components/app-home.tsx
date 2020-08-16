@@ -9,14 +9,14 @@ import { AudioSearcher } from '../helpers/AudioSearcher';
 export class AppHome {
   wordInput: HTMLIonInputElement
   @State() imageResults: string[] = []
-  @State() audioResults: string[] = []
+  @State() lingueeResults: LingueeResult[] = []
   @State() loading = false
   imagePicker: HTMLImagePickerElement
 
   async search() {
     try {
       this.loading = true
-      await Promise.all([this.searchImages(), this.searchAudio()])
+      await Promise.all([this.searchImages(), this.searchLinguee()])
       this.loading = false
     } catch (e) {
       if (e instanceof LanguageNotSupportedError) {
@@ -32,13 +32,13 @@ export class AppHome {
     this.imageResults = await ImageSearcher.search(this.wordInput.value.toString(), Languages.German)
   }
 
-  async searchAudio() {
-    this.audioResults = await AudioSearcher.search(this.wordInput.value.toString(), Languages.German)
+  async searchLinguee() {
+    this.lingueeResults = await AudioSearcher.search(this.wordInput.value.toString(), Languages.German)
   }
 
   handleKeyDown(e: KeyboardEvent) {
     if (e.keyCode === 13) { // enter
-      this.searchImages()
+      this.search()
     } else {
       this.imagePicker?.getSelectedImageUrls().then(console.log)
     }
@@ -58,10 +58,11 @@ export class AppHome {
             <ion-label position="stacked" class={centerText}>word to learn</ion-label>
             <ion-input onKeyDown={e => this.handleKeyDown(e)} enterkeyhint="search" class={centerText} ref={el => this.wordInput = el}></ion-input>
           </ion-item>
-          <ion-button class={button} onClick={() => this.searchImages()}>
+          <ion-button class={button} onClick={() => this.search()}>
             <span>Search</span>
             {this.loading && <ion-spinner></ion-spinner>}
           </ion-button>
+          {this.lingueeResults.length > 0 && <audio-picker lingueeResults={this.lingueeResults}></audio-picker>}
           {this.imageResults.length > 0 && <image-picker ref={el => this.imagePicker = el} urls={this.imageResults}></image-picker>}
         </div>
       </ion-content>
