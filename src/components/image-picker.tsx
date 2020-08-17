@@ -27,15 +27,12 @@ export class ImagePicker {
   render() {
     return (
       <div class={container}>
-        {this.urls.map((url, i) => {
-          const selected = this.selectedImages.has(i)
-          return (
-            <div key={url} class={imageContainer} onClick={() => this.toggleSelected(i)}>
-              <ion-icon class={[checkmark, selected ? selectedIcon : unselectedIcon].join(' ')} name={selected ? 'checkmark-circle' : 'checkmark-circle-outline'}></ion-icon>
-              <img class={image} src={url} />
-            </div>
-          )
-        })}
+        {this.urls.map((url, i) => (
+          <div key={url} class={imageContainer} onClick={() => this.toggleSelected(i)}>
+            <selectable-checkmark class={check} selected={this.selectedImages.has(i)}></selectable-checkmark>
+            <img class={image} src={url} />
+          </div>
+        ))}
       </div>
     )
   }
@@ -44,7 +41,8 @@ export class ImagePicker {
 const container = css`
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  place-items: center;
+  place-content: center;
 `
 const imageContainer = css`
   display: inline-block;
@@ -55,15 +53,8 @@ const imageContainer = css`
 const image = css`
   border-radius: 8px;
 `
-const checkmark = css`
+const check = css`
   position: absolute;
   left: 8px;
   top: 8px;
-  font-size: 20px;
-`
-const selectedIcon = css`
-  color: lightseagreen;
-`
-const unselectedIcon = css`
-  color: lightblue;
 `

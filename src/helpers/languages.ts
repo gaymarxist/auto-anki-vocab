@@ -6,14 +6,14 @@ export const Languages: { [K in LanguageNames]: Language } = {
     nameInEnglish: 'German',
     googleRegionCode: 'countryDE',
     googleLanguageCode: 'lang_de',
-    lingueeCode: 'de'
+    lingueeCode: 'DE'
   },
   English: {
     nameInLanguage: 'English',
     nameInEnglish: 'English',
     googleRegionCode: 'countryUS',
     googleLanguageCode: 'lang_en',
-    lingueeCode: 'en'
+    lingueeCode: 'EN'
   }
 }
 

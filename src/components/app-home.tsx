@@ -3,7 +3,7 @@ import { ImageSearcher } from '../helpers/ImageSearcher';
 import { toastController } from '@ionic/core';
 import { css } from 'linaria'
 import { LanguageNotSupportedError, Languages } from '../helpers/languages';
-import { AudioSearcher } from '../helpers/AudioSearcher';
+import { LingueeSearcher } from '../helpers/LingueeSearcher';
 
 @Component({ tag: 'app-home' })
 export class AppHome {
@@ -14,10 +14,9 @@ export class AppHome {
   imagePicker: HTMLImagePickerElement
 
   async search() {
+    this.loading = true
     try {
-      this.loading = true
       await Promise.all([this.searchImages(), this.searchLinguee()])
-      this.loading = false
     } catch (e) {
       if (e instanceof LanguageNotSupportedError) {
         toastController.create({
@@ -26,6 +25,7 @@ export class AppHome {
         }).then(toast => toast.present())
       }
     }
+    this.loading = false
   }
 
   async searchImages() {
@@ -33,14 +33,13 @@ export class AppHome {
   }
 
   async searchLinguee() {
-    this.lingueeResults = await AudioSearcher.search(this.wordInput.value.toString(), Languages.German)
+    this.lingueeResults = await LingueeSearcher.search(this.wordInput.value.toString(), Languages.German)
   }
 
   handleKeyDown(e: KeyboardEvent) {
-    if (e.keyCode === 13) { // enter
+    // enter
+    if (e.keyCode === 13) {
       this.search()
-    } else {
-      this.imagePicker?.getSelectedImageUrls().then(console.log)
     }
   }
 

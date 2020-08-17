@@ -11,11 +11,15 @@ export namespace Components {
     interface AppRoot {
     }
     interface AudioPicker {
+        "getSelectedAudioUrl": () => Promise<string>;
         "lingueeResults": LingueeResult[];
     }
     interface ImagePicker {
         "getSelectedImageUrls": () => Promise<any[]>;
         "urls": string[];
+    }
+    interface SelectableCheckmark {
+        "selected": boolean;
     }
 }
 declare global {
@@ -43,11 +47,18 @@ declare global {
         prototype: HTMLImagePickerElement;
         new (): HTMLImagePickerElement;
     };
+    interface HTMLSelectableCheckmarkElement extends Components.SelectableCheckmark, HTMLStencilElement {
+    }
+    var HTMLSelectableCheckmarkElement: {
+        prototype: HTMLSelectableCheckmarkElement;
+        new (): HTMLSelectableCheckmarkElement;
+    };
     interface HTMLElementTagNameMap {
         "app-home": HTMLAppHomeElement;
         "app-root": HTMLAppRootElement;
         "audio-picker": HTMLAudioPickerElement;
         "image-picker": HTMLImagePickerElement;
+        "selectable-checkmark": HTMLSelectableCheckmarkElement;
     }
 }
 declare namespace LocalJSX {
@@ -61,11 +72,15 @@ declare namespace LocalJSX {
     interface ImagePicker {
         "urls"?: string[];
     }
+    interface SelectableCheckmark {
+        "selected"?: boolean;
+    }
     interface IntrinsicElements {
         "app-home": AppHome;
         "app-root": AppRoot;
         "audio-picker": AudioPicker;
         "image-picker": ImagePicker;
+        "selectable-checkmark": SelectableCheckmark;
     }
 }
 export { LocalJSX as JSX };
@@ -76,6 +91,7 @@ declare module "@stencil/core" {
             "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
             "audio-picker": LocalJSX.AudioPicker & JSXBase.HTMLAttributes<HTMLAudioPickerElement>;
             "image-picker": LocalJSX.ImagePicker & JSXBase.HTMLAttributes<HTMLImagePickerElement>;
+            "selectable-checkmark": LocalJSX.SelectableCheckmark & JSXBase.HTMLAttributes<HTMLSelectableCheckmarkElement>;
         }
     }
 }
