@@ -12,3 +12,9 @@ interface LingueeResult {
   gender: string
   audioUrls: string[]
 }
+
+interface Card {
+  text: string
+  audioUrl: string
+  imageUrls: string[]
+}

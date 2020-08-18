@@ -7,7 +7,7 @@ export class ImagePicker {
   @State() selectedImages: Set<number> = new Set()
 
   @Method()
-  async getSelectedImageUrls() {
+  async getSelectedImageUrls(): Promise<string[]> {
     const selectedUrls = []
     for (const index of this.selectedImages.keys()) {
       selectedUrls.push(this.urls[index])

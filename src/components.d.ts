@@ -15,7 +15,7 @@ export namespace Components {
         "lingueeResults": LingueeResult[];
     }
     interface ImagePicker {
-        "getSelectedImageUrls": () => Promise<any[]>;
+        "getSelectedImageUrls": () => Promise<string[]>;
         "urls": string[];
     }
     interface SelectableCheckmark {
