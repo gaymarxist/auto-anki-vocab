@@ -3,16 +3,11 @@ import { css } from 'linaria'
 
 @Component({ tag: 'selectable-checkmark' })
 export class SelectableCheckmark {
-  @Prop() selected = false
-  render = () => <ion-icon class={[checkmark, this.selected ? selectedIcon : unselectedIcon].join(' ')} name={this.selected ? 'checkmark-circle' : 'checkmark-circle-outline'}></ion-icon>
+  @Prop({ reflect: true }) selected = false
+  render = () => <box-icon class={checkmark} color={this.selected ? 'lightseagreen' : '#7a7a7a'} name='check-circle' type={this.selected ? 'solid' : 'regular'}></box-icon>
 }
 
 const checkmark = css`
-  font-size: 20px;
-`
-const selectedIcon = css`
-  color: lightseagreen;
-`
-const unselectedIcon = css`
-  color: lightblue;
+  background-color: #fffa;
+  border-radius: 100px;
 `

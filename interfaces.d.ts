@@ -3,7 +3,8 @@ interface Language {
   nameInEnglish: string
   googleRegionCode: string
   googleLanguageCode: string
-  lingueeCode: string
+  lingueeCode: string,
+  lingueeUrlPrefix: string
 }
 
 interface LingueeResult {
@@ -11,10 +12,4 @@ interface LingueeResult {
   partOfSpeech: string
   gender: string
   audioUrls: string[]
-}
-
-interface Card {
-  text: string
-  audioUrl: string
-  imageUrls: string[]
 }

@@ -1,10 +1,5 @@
-import { isLanguageSupported, LanguageNotSupportedError } from "./languages";
-
 export class ImageSearcher {
   static async search(query: string, language: Language): Promise<string[]> {
-    if (!isLanguageSupported(language)) {
-      throw new LanguageNotSupportedError()
-    }
     const { googleRegionCode, googleLanguageCode } = language
 
     // cr: results from a specific region

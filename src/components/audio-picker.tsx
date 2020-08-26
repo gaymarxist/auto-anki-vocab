@@ -1,4 +1,4 @@
-import { Component, h, Prop, State, Method } from '@stencil/core'
+import { Component, h, Prop, State, Method, Watch } from '@stencil/core'
 import { css } from 'linaria'
 
 @Component({ tag: 'audio-picker' })
@@ -12,9 +12,18 @@ export class AudioPicker {
     return this.selectedAudioUrl
   }
 
+  @Watch('lingueeResults')
+  resetSelection() {
+    this.selectedAudioUrl = undefined
+  }
+
   handleClick(url: string) {
-    this.playingUrl = url
-    this.selectedAudioUrl = url
+    if (this.selectedAudioUrl === url) {
+      this.selectedAudioUrl = undefined
+    } else {
+      this.playingUrl = url
+      this.selectedAudioUrl = url
+    }
   }
 
   render() {
@@ -23,10 +32,10 @@ export class AudioPicker {
         {this.lingueeResults.map(lingueeResult => (
           <div>
             {lingueeResult.audioUrls.map(url => (
-              <ion-card onClick={() => this.handleClick(url)} class={this.selectedAudioUrl === url ? `selected ${card}` : card}>
-                <ion-icon name={this.playingUrl === url ? 'pause' : 'play'}></ion-icon>
+              <div onClick={() => this.handleClick(url)} class={this.selectedAudioUrl === url ? `selected ${card}` : card}>
+                <box-icon name={this.playingUrl === url ? 'pause' : 'play'}></box-icon>
                 <span>{lingueeResult.text}</span>
-              </ion-card>
+              </div>
             ))}
           </div>
         ))}
@@ -48,14 +57,12 @@ const card = css`
   place-items: center;
   padding: 12px;
   margin: 8px;
+  border-radius: 8px;
   cursor: pointer;
-  & > * {
-    margin: 0px 3px;
-  }
   &:hover {
-    box-shadow: 0px 0px 0px 2px var(--ion-color-medium-shade);
+    box-shadow: 0px 0px 0px 2px var(--low-contrast-color);
   }
   &.selected {
-    box-shadow: 0px 0px 0px 2px var(--ion-color-success);
+    box-shadow: 0px 0px 0px 2px lightseagreen;
   }
 `

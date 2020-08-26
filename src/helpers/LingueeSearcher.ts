@@ -1,21 +1,17 @@
-import { isLanguageSupported, LanguageNotSupportedError, Languages } from "./languages";
+import { Languages } from "./languages";
 
 export class LingueeSearcher {
   static LINGUEE_PREFIX = 'https://linguee.com/mp3/'
 
   static async search(query: string, language: Language): Promise<LingueeResult[]> {
-    if (!isLanguageSupported(language)) {
-      throw new LanguageNotSupportedError
-    }
+    const response = await fetch(`https://linguee-api.herokuapp.com/api?q=${encodeURIComponent(query)}&src=${language.lingueeCode}&dst=${Languages.English.lingueeCode}`).then(res => res.json())
 
-    const result = await fetch(`https://linguee-api.herokuapp.com/api?q=${encodeURIComponent(query)}&src=${language.lingueeCode}&dst=${Languages.English.lingueeCode}`).then(res => res.json())
-
-    if (!result.exact_matches) {
+    if (!response.exact_matches) {
       return []
     }
 
     // filter out words from other languages
-    let matches = result.exact_matches.filter(match => match.lemma_id.startsWith(language.lingueeCode))
+    let matches = response.exact_matches.filter(match => match.lemma_id.startsWith(language.lingueeCode))
 
     // things that are not exact matches show up in linguee's "exact_matches", so let's filter them out
     const actualExactMatches = matches.filter(match => match.text.toLowerCase() === query.toLowerCase())
@@ -24,11 +20,24 @@ export class LingueeSearcher {
       matches = actualExactMatches
     }
 
-    return matches.map(match => ({
+    const results: LingueeResult[] = matches.map(match => ({
       text: match.text,
       partOfSpeech: match.word_type.pos,
       gender: match.word_type.gender,
-      audioUrls: [...new Set(match.audio_links.map(audio => this.LINGUEE_PREFIX + audio.url_part))]
+      audioUrls: [...new Set(match.audio_links.filter(audio => audio.url_part.startsWith(language.lingueeUrlPrefix)).map(audio => this.LINGUEE_PREFIX + audio.url_part))]
     } as LingueeResult))
+
+    // remove duplicates
+    const resultSet = new Set<string>()
+    const dedupedResults: LingueeResult[] = []
+    for (const result of results) {
+      const stringResult = JSON.stringify(result)
+      if (!resultSet.has(stringResult)) {
+        resultSet.add(stringResult)
+        dedupedResults.push(result)
+      }
+    }
+
+    return dedupedResults
   }
 }

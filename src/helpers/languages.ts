@@ -1,4 +1,4 @@
-type LanguageNames = 'German' | 'English'
+type LanguageNames = 'German' | 'English' | 'PortugueseBrazil' | 'PortugueseEurope'
 
 export const Languages: { [K in LanguageNames]: Language } = {
   German: {
@@ -6,14 +6,32 @@ export const Languages: { [K in LanguageNames]: Language } = {
     nameInEnglish: 'German',
     googleRegionCode: 'countryDE',
     googleLanguageCode: 'lang_de',
-    lingueeCode: 'DE'
+    lingueeCode: 'DE',
+    lingueeUrlPrefix: 'DE'
   },
   English: {
-    nameInLanguage: 'English',
-    nameInEnglish: 'English',
+    nameInLanguage: 'American English',
+    nameInEnglish: 'American English',
     googleRegionCode: 'countryUS',
     googleLanguageCode: 'lang_en',
-    lingueeCode: 'EN'
+    lingueeCode: 'EN',
+    lingueeUrlPrefix: 'EN_US'
+  },
+  PortugueseBrazil: {
+    nameInLanguage: 'Português brasileiro', // TODO: is this right?
+    nameInEnglish: 'Brazilian Portuguese',
+    googleRegionCode: 'countryBR',
+    googleLanguageCode: 'lang_pt',
+    lingueeCode: 'PT',
+    lingueeUrlPrefix: 'PT_BR'
+  },
+  PortugueseEurope: {
+    nameInLanguage: 'Português europeu', // TODO: is this right?
+    nameInEnglish: 'European Portuguese',
+    googleRegionCode: 'countryPT',
+    googleLanguageCode: 'lang_pt',
+    lingueeCode: 'PT',
+    lingueeUrlPrefix: 'PT_PT'
   }
 }
 

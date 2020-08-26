@@ -2,6 +2,8 @@ import { Config } from '@stencil/core';
 import linaria from 'linaria/rollup'
 import css from 'rollup-plugin-css-only'
 
+const isProd = process.env.NODE_ENV === 'production'
+
 export const config: Config = {
   globalScript: 'src/global/app.ts',
   globalStyle: 'src/global/app.css',
@@ -16,7 +18,10 @@ export const config: Config = {
   }],
   rollupPlugins: {
     after: [
-      linaria(),
+      linaria({
+        displayName: !isProd,
+        sourceMap: !isProd
+      }),
       css({ output: 'www/build/bundle.css' })
     ]
   }

@@ -18,6 +18,9 @@ export namespace Components {
         "getSelectedImageUrls": () => Promise<string[]>;
         "urls": string[];
     }
+    interface LanguageSelect {
+        "getValue": () => Promise<string>;
+    }
     interface SelectableCheckmark {
         "selected": boolean;
     }
@@ -47,6 +50,12 @@ declare global {
         prototype: HTMLImagePickerElement;
         new (): HTMLImagePickerElement;
     };
+    interface HTMLLanguageSelectElement extends Components.LanguageSelect, HTMLStencilElement {
+    }
+    var HTMLLanguageSelectElement: {
+        prototype: HTMLLanguageSelectElement;
+        new (): HTMLLanguageSelectElement;
+    };
     interface HTMLSelectableCheckmarkElement extends Components.SelectableCheckmark, HTMLStencilElement {
     }
     var HTMLSelectableCheckmarkElement: {
@@ -58,6 +67,7 @@ declare global {
         "app-root": HTMLAppRootElement;
         "audio-picker": HTMLAudioPickerElement;
         "image-picker": HTMLImagePickerElement;
+        "language-select": HTMLLanguageSelectElement;
         "selectable-checkmark": HTMLSelectableCheckmarkElement;
     }
 }
@@ -72,6 +82,8 @@ declare namespace LocalJSX {
     interface ImagePicker {
         "urls"?: string[];
     }
+    interface LanguageSelect {
+    }
     interface SelectableCheckmark {
         "selected"?: boolean;
     }
@@ -80,6 +92,7 @@ declare namespace LocalJSX {
         "app-root": AppRoot;
         "audio-picker": AudioPicker;
         "image-picker": ImagePicker;
+        "language-select": LanguageSelect;
         "selectable-checkmark": SelectableCheckmark;
     }
 }
@@ -91,6 +104,7 @@ declare module "@stencil/core" {
             "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
             "audio-picker": LocalJSX.AudioPicker & JSXBase.HTMLAttributes<HTMLAudioPickerElement>;
             "image-picker": LocalJSX.ImagePicker & JSXBase.HTMLAttributes<HTMLImagePickerElement>;
+            "language-select": LocalJSX.LanguageSelect & JSXBase.HTMLAttributes<HTMLLanguageSelectElement>;
             "selectable-checkmark": LocalJSX.SelectableCheckmark & JSXBase.HTMLAttributes<HTMLSelectableCheckmarkElement>;
         }
     }
